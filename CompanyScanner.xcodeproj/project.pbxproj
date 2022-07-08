@@ -25,6 +25,11 @@
 		ACAA655528642CCF00CE89B1 /* AnyIntValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAA655428642CCF00CE89B1 /* AnyIntValue.swift */; };
 		ACAA65572864628B00CE89B1 /* CompanyAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAA65562864628B00CE89B1 /* CompanyAnnotationView.swift */; };
 		ACAA65592864660600CE89B1 /* CompanyClusterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAA65582864660600CE89B1 /* CompanyClusterView.swift */; };
+		ACB8F1212878198C002FBD4A /* TabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB8F1202878198C002FBD4A /* TabButton.swift */; };
+		ACC222E628697D3B00DE1E9B /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC222E528697D3B00DE1E9B /* ActivityIndicator.swift */; };
+		ACC222E82869A09800DE1E9B /* CompanyInfoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC222E72869A09800DE1E9B /* CompanyInfoListView.swift */; };
+		ACC22350287583A300DE1E9B /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC2234F287583A300DE1E9B /* BottomSheet.swift */; };
+		ACC223522875919A00DE1E9B /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC223512875919A00DE1E9B /* BlurView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +73,11 @@
 		ACAA655428642CCF00CE89B1 /* AnyIntValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyIntValue.swift; sourceTree = "<group>"; };
 		ACAA65562864628B00CE89B1 /* CompanyAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyAnnotationView.swift; sourceTree = "<group>"; };
 		ACAA65582864660600CE89B1 /* CompanyClusterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyClusterView.swift; sourceTree = "<group>"; };
+		ACB8F1202878198C002FBD4A /* TabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabButton.swift; sourceTree = "<group>"; };
+		ACC222E528697D3B00DE1E9B /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		ACC222E72869A09800DE1E9B /* CompanyInfoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyInfoListView.swift; sourceTree = "<group>"; };
+		ACC2234F287583A300DE1E9B /* BottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
+		ACC223512875919A00DE1E9B /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,10 +206,15 @@
 		ACAA653F2861660F00CE89B1 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				ACC222E72869A09800DE1E9B /* CompanyInfoListView.swift */,
 				ACAA65412861685100CE89B1 /* CoolishMapView.swift */,
 				ACAA654628616C8600CE89B1 /* CoolishLocationCoordinator.swift */,
 				ACAA65562864628B00CE89B1 /* CompanyAnnotationView.swift */,
 				ACAA65582864660600CE89B1 /* CompanyClusterView.swift */,
+				ACC222E528697D3B00DE1E9B /* ActivityIndicator.swift */,
+				ACC2234F287583A300DE1E9B /* BottomSheet.swift */,
+				ACC223512875919A00DE1E9B /* BlurView.swift */,
+				ACB8F1202878198C002FBD4A /* TabButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -404,11 +419,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACAA65422861685100CE89B1 /* CoolishMapView.swift in Sources */,
+				ACC22350287583A300DE1E9B /* BottomSheet.swift in Sources */,
 				ACAA655128642B4C00CE89B1 /* CompanyAnnotation.swift in Sources */,
 				ACAA65152861621F00CE89B1 /* ContentView.swift in Sources */,
 				ACAA65592864660600CE89B1 /* CompanyClusterView.swift in Sources */,
+				ACB8F1212878198C002FBD4A /* TabButton.swift in Sources */,
+				ACC222E82869A09800DE1E9B /* CompanyInfoListView.swift in Sources */,
+				ACC222E628697D3B00DE1E9B /* ActivityIndicator.swift in Sources */,
 				ACAA6549286171F100CE89B1 /* CLLocation+Distance.swift in Sources */,
 				ACAA65132861621F00CE89B1 /* CompanyScannerApp.swift in Sources */,
+				ACC223522875919A00DE1E9B /* BlurView.swift in Sources */,
 				ACAA655328642BE000CE89B1 /* CompaniesInfoViewModel.swift in Sources */,
 				ACAA6545286168B300CE89B1 /* CoolishMapViewProtocol.swift in Sources */,
 				ACAA654728616C8600CE89B1 /* CoolishLocationCoordinator.swift in Sources */,

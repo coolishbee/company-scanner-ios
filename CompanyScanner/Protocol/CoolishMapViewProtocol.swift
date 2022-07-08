@@ -11,6 +11,8 @@ import MapKit
 protocol CoolishMapViewProtocol {
     var mapView: UIView { get }
     
+    var viewModel: CompaniesInfoViewModel? { get set }
+    var annotations: [CompanyAnnotation]? { get set }
     func setRegion(_ region: MKCoordinateRegion, needUpdate: Bool, animated: Bool)
 }
 

@@ -16,13 +16,15 @@ class CompanyAnnotationView: MKMarkerAnnotationView {
 //            }
             clusteringIdentifier = "companyClusterIdentifier"
             
-            canShowCallout = true
+            //canShowCallout = true
             
-            let disclosureButton = UIButton(type: .detailDisclosure)
-            disclosureButton.tintColor = UIColor(named: "buttonTextColor")
-            rightCalloutAccessoryView = disclosureButton
+            //let disclosureButton = UIButton(type: .detailDisclosure)
+            //disclosureButton.tintColor = UIColor(named: "buttonTextColor")
+            //rightCalloutAccessoryView = disclosureButton
             
-            glyphImage = UIImage(named: "building")            
+            glyphImage = UIImage(named: "building")
+            //markerTintColor = UIColor.yellow
+            //displayPriority = .defaultHigh
         }
     }
 }

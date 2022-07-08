@@ -19,7 +19,7 @@ struct CoolishMapView: UIViewRepresentable, CoolishMapViewProtocol {
     private let mkMapView: MKMapView = {
         let map = MKMapView(frame: .zero)
         map.showsUserLocation = true
-        map.userTrackingMode = .follow
+        map.userTrackingMode = .follow        
         return map
     }()
     
@@ -51,19 +51,19 @@ struct CoolishMapView: UIViewRepresentable, CoolishMapViewProtocol {
         return mkMapView
     }
     
-    func updateUIView(_ uiView: MKMapView, context: Context) {
+    func updateUIView(_ mapView: MKMapView, context: Context) {
         print("updateUIView")
         guard let annotations = annotations, viewModel?.isRefreshed ?? false else {
             return
         }
         viewModel?.isRefreshed.toggle()
-        uiView.removeAnnotations(uiView.annotations)
-        uiView.addAnnotations(annotations)
+        mapView.removeAnnotations(mapView.annotations)
+        mapView.addAnnotations(annotations)            
     }
     
     func registerAnnotationViewClasses() {
         mkMapView.register(CompanyAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
-        
+        mkMapView.register(CompanyClusterView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
     }
     
     func makeCoordinator() -> CoolishLocationCoordinator {

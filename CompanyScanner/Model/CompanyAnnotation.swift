@@ -20,7 +20,7 @@ class CompanyAnnotation: MKPointAnnotation {
         let annotations = companies.map { (company) -> CompanyAnnotation in
             let annotation = CompanyAnnotation(company: company)
             annotation.title = company.name
-            annotation.subtitle = company.name
+            annotation.subtitle = company.addr
             annotation.coordinate = CLLocationCoordinate2DMake(company.latitude, company.longitude)
             return annotation
         }

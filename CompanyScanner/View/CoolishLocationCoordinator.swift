@@ -65,24 +65,49 @@ extension CoolishLocationCoordinator: CLLocationManagerDelegate {
                                         span: MKCoordinateSpan(latitudeDelta: 0.01,
                                                                longitudeDelta: 0.01))
         self.mainMapView.setRegion(region, needUpdate: true, animated: false)
+        self.mainMapView.viewModel?.canRefresh = false
         locationManager.stopUpdatingLocation()
     }
 }
 
 //MARK: - MKMapViewDelegate Delegate
 extension CoolishLocationCoordinator: MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        print("didSelect")        
     }
     
-    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        if let center = beforeRegion?.center {            
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        print("didDeselect")
+    }
+    
+    func mapView(_ mapView: MKMapView,
+                 regionDidChangeAnimated animated: Bool)
+    {
+        print("regionDidChangeAnimated")
+        if let center = beforeRegion?.center {
             let distance = CLLocation.distance(from: center, to: mapView.region.center)
             if distance > 1000 {
-                
+                self.mainMapView.viewModel?.canRefresh = true
                 self.mainMapView.setRegion(mapView.region, needUpdate: false, animated: false)
             }
         }
         beforeRegion = mapView.region
+    }
+//MARK: - Obsolete
+    func mapView(_ mapView: MKMapView,
+                 annotationView view: MKAnnotationView,
+                 calloutAccessoryControlTapped control: UIControl)
+    {
+        if let annotation = view.annotation as? CompanyAnnotation {
+            
+            print("Annotation: \(annotation.title ?? "") : \(annotation.subtitle ?? "")")
+            self.mainMapView.viewModel?.selectedAnnotation = annotation
+            
+        } else if let cluster = view.annotation as? MKClusterAnnotation {
+            
+            print("Annotations count: \(cluster.memberAnnotations.count)")
+            self.mainMapView.viewModel?.selectedAnnotations = cluster.memberAnnotations as? [CompanyAnnotation]
+        }
     }
 }

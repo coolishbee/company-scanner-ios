@@ -12,16 +12,26 @@ class CompaniesInfoViewModel: ObservableObject {
     
     @Published var annotiations: [CompanyAnnotation]?
     
+    @Published var hasSelectedAnnotation: Bool = false
+    var selectedAnnotation: CompanyAnnotation? {
+        didSet {
+            self.selectedCompany = self.selectedAnnotation?.company
+            hasSelectedAnnotation = self.selectedCompany != nil
+        }
+    }
+    
     @Published var hasSelectedAnnotations: Bool = false
     var selectedAnnotations: [CompanyAnnotation]? {
         didSet {
             if let selectedAnnotations = selectedAnnotations, !selectedAnnotations.isEmpty {
-                
+                hasSelectedAnnotations = true
             } else {
                 hasSelectedAnnotations = false
             }
         }
     }
+    
+    @Published var selectedCompany: CompanyInfo?
     
     var selectedCompanies: [CompanyInfo] {
         guard let annotations = self.selectedAnnotations else {
@@ -33,16 +43,6 @@ class CompaniesInfoViewModel: ObservableObject {
         }
         return companies
     }
-    
-    @Published var hasSelectedAnnotation: Bool = false
-    var selectedAnnotation: CompanyAnnotation? {
-        didSet {
-            self.selectedCompany = self.selectedAnnotation?.company
-            hasSelectedAnnotation = self.selectedCompany != nil
-        }
-    }
-    
-    @Published var selectedCompany: CompanyInfo?
     
     var regionTuple: (lati: Double, lng: Double)?
     var companies: [CompanyInfo]? {
@@ -60,11 +60,15 @@ class CompaniesInfoViewModel: ObservableObject {
     func requestCompaniesAPI() {
         print("requestCompaniesAPI")
         
+        //network io
+        
         self.isRefreshed = true
+        self.isLoading = false
         self.canRefresh = false
         
         let testCompany = CompanyInfo(code: AnyIntValue.int(1), name: "게임펍", addr: "퀸즈파크나인", type: "게임회사", lat: AnyDoubleValue.double(37.557772), lng: AnyDoubleValue.double(126.834715))
-        self.companies = [testCompany]
+        let test2Company = CompanyInfo(code: AnyIntValue.int(1), name: "컴투스", addr: "퀸즈파크나인", type: "게임회사", lat: AnyDoubleValue.double(37.556572), lng: AnyDoubleValue.double(126.834715))
+        self.companies = [testCompany, test2Company]
     }
     
     private func refreshAnnotations() {
