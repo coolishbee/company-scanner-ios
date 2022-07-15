@@ -12,6 +12,7 @@ struct ContentView: View {
     @ObservedObject var viewModel = CompaniesInfoViewModel()
     
     @State var offset: CGFloat = 0
+    @State var isTest: Bool = false
     
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom), content: {
@@ -27,10 +28,11 @@ struct ContentView: View {
                           }))
             }.ignoresSafeArea(.all, edges: .all)
             
-            if viewModel.hasSelectedAnnotations {
+            if viewModel.hasSelectedAnnotation {
                 GeometryReader { reader in
                     VStack {
-                        BottomSheet()
+                        
+                        BottomSheet(isTest: $isTest)
                             .offset(y: reader.frame(in: .global).height - 200)
                             .offset(y: offset)
                             .gesture(
@@ -43,12 +45,14 @@ struct ContentView: View {
                                             if value.startLocation.y > reader.frame(in: .global).midX {
                                                 if value.translation.height < 0 && offset > (-reader.frame(in: .global).height + 200) {
                                                     offset = value.translation.height
+                                                    print("1 ======== \(offset)")                                                    
                                                 }
                                             }
 
                                             if value.startLocation.y < reader.frame(in: .global).midX {
                                                 if value.translation.height > 0 && offset < 0 {
                                                     offset = (-reader.frame(in: .global).height + 200) + value.translation.height
+                                                    print("2 ======== \(offset)")
                                                 }
                                             }
                                         }
@@ -59,26 +63,33 @@ struct ContentView: View {
                                             if value.startLocation.y > reader.frame(in: .global).midX {
                                                 if -value.translation.height > reader.frame(in: .global).midX {
                                                     offset = (-reader.frame(in: .global).height + 200)
+                                                    print("3 ======== \(offset)")
+                                                    isTest = true
                                                     return
                                                 }
 
                                                 offset = 0
+                                                print("4 ======== \(offset)")
                                             }
 
                                             if value.startLocation.y < reader.frame(in: .global).midX {
                                                 if value.translation.height < reader.frame(in: .global).midX {
                                                     offset = (-reader.frame(in: .global).height + 200)
+                                                    print("5 ======== \(offset)")
                                                     return
                                                 }
 
                                                 offset = 0
+                                                print("6 ======== \(offset)")
+                                                isTest = false
                                             }
                                         }
                                     })
-                            )
-                    }
+                            ) //gesture
+                                                
+                    } //VStack
                 }
-                .ignoresSafeArea(.all, edges: .bottom)
+                .ignoresSafeArea(.all, edges: .all)
             }
             
             
@@ -104,8 +115,6 @@ struct ContentView: View {
                 Spacer()
             }.edgesIgnoringSafeArea(.top)
             ActivityIndicator(isAnimating: $viewModel.isLoading, style: .large)
-            
-                        
         }) // ZStack
 //        .sheet(isPresented: $viewModel.hasSelectedAnnotations, content: {
 //                        
@@ -117,19 +126,19 @@ struct ContentView: View {
 //                }
 //            }
 //        })
-        .actionSheet(isPresented: $viewModel.hasSelectedAnnotation, content: { () -> ActionSheet in
-            let company = self.viewModel.selectedCompany
-            let title = Text(company?.name ?? "")
-            let subTitle = Text(company?.addr ?? "")
-            return ActionSheet(title: title, message: subTitle, buttons: [
-                .default(Text("길찾기"), action: {
-                    print("TEST")
-                }),
-                .destructive(Text("취소"), action: {
-                    self.clearSelectedAnnotation()
-                })
-            ])
-        })
+//        .actionSheet(isPresented: $viewModel.hasSelectedAnnotation, content: { () -> ActionSheet in
+//            let company = self.viewModel.selectedCompany
+//            let title = Text(company?.name ?? "")
+//            let subTitle = Text(company?.addr ?? "")
+//            return ActionSheet(title: title, message: subTitle, buttons: [
+//                .default(Text("길찾기"), action: {
+//                    print("TEST")
+//                }),
+//                .destructive(Text("취소"), action: {
+//                    self.clearSelectedAnnotation()
+//                })
+//            ])
+//        })
     }
 }
 

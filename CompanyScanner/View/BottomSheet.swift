@@ -13,23 +13,25 @@ struct BottomSheet: View {
     @State var text = ""
     @State var selected = "house"
     @State var isHide = false
+    @Binding var isTest: Bool
     @Namespace var animation
     
     var body: some View {
         VStack() {
-            if !isHide {
-                Capsule()
-                    .fill(Color.gray.opacity(0.5))
-                    .frame(width: 50, height: 5)
-                    .padding(.top)
-//                    .padding(.bottom, 5)
+            Capsule()
+                .fill(Color.gray.opacity(0.5))
+                .frame(width: 50, height: 5)
+                .padding(.top)
+            //                    .padding(.bottom, 5)
+            
+            if !isTest {
                 
                 VStack(spacing: 20) {
                     
                     VStack(alignment: .leading, spacing: 10, content: {
                         HStack {
                             Text("게임펍")
-                                //.fontWeight(.bold)
+                            //.fontWeight(.bold)
                                 .font(.headline)
                             
                             Text("게임회사")
@@ -55,7 +57,6 @@ struct BottomSheet: View {
                         
                         Text("서울 강서구 공항대로 247 퀸즈나인 C동")
                             .font(.caption)
-                                            
                     })
                     .frame(maxWidth: .infinity, alignment: .leading)
                     
@@ -68,110 +69,115 @@ struct BottomSheet: View {
                     }
                     
                 }.padding()
-            }
-            
-            VStack(spacing: 10) {
-                Text("게임펍")
-                    .font(.largeTitle)
-                    .fontWeight(.heavy)
                 
-                Text("게임회사")
-                    .font(.caption)
-                    .fontWeight(.bold)
-                    .foregroundColor(.gray)
                 
-                HStack(spacing: 0) {
-                    ForEach(tabItems, id: \.self) { item in
-                        GeometryReader { reader in
-                            TabButton(selected: $selected, image: item, animation: animation)
-                        }
-                        .frame(width: 70, height: 50)
+            }else {
+                VStack(spacing: 10) {
+                    if !isHide {
+                        Text("게임펍")
+                            .font(.largeTitle)
+                            .fontWeight(.heavy)
                         
-                        if item != tabItems.last {
-                            Spacer(minLength: 0)
+                        Text("게임회사")
+                            .font(.caption)
+                            .fontWeight(.bold)
+                            .foregroundColor(.gray)
+                    }
+                    
+                    HStack(spacing: 0) {
+                        ForEach(tabItems, id: \.self) { item in
+                            GeometryReader { reader in
+                                TabButton(selected: $selected, image: item, animation: animation)
+                            }
+                            .frame(width: 70, height: 50)
+                            
+                            if item != tabItems.last {
+                                Spacer(minLength: 0)
+                            }
                         }
                     }
                 }
-            }
-            .padding(.top)
-            
-            
-            ScrollView(.vertical, showsIndicators: false, content: {
+                .padding(.top)
                 
-                VStack(spacing: 0, content: {
-                    GeometryReader { reader -> AnyView in
-                        let yAxis = reader.frame(in: .global).minY
-
-                        // logic simple if goes below zero hide nav bar
-                        if yAxis < 0 && !isHide {
-                            DispatchQueue.main.async {
-                                withAnimation {
-                                    isHide = true
-                                }
-                            }
-                        }
-
-                        if yAxis > 0 && isHide {
-                            DispatchQueue.main.async {
-                                withAnimation {
-                                    isHide = false
-                                }
-                            }
-                        }
-
-                        return AnyView(
-                            Text("")
-                                .frame(width: 0, height: 0)
-                        )
-                    }
-                    .frame(width: 0, height: 0)
+                
+                ScrollView(.vertical, showsIndicators: false, content: {
                     
-                    VStack(spacing: 15) {
-                        Text("Toys Story")
-                            .font(.system(size: 35, weight: .bold))
-                        
-                        HStack(spacing: 15) {
-                            ForEach(1...5, id: \.self) { _ in
-                                Image(systemName: "star.fill")
-                                    .foregroundColor(.red)
+                    VStack(spacing: 0, content: {
+                        GeometryReader { reader -> AnyView in
+                            let yAxis = reader.frame(in: .global).minY
+
+                            // logic simple if goes below zero hide nav bar
+                            if yAxis < 0 && !isHide {
+                                DispatchQueue.main.async {
+                                    withAnimation {
+                                        isHide = true
+                                    }
+                                }
                             }
+
+                            if yAxis > 0 && isHide {
+                                DispatchQueue.main.async {
+                                    withAnimation {
+                                        isHide = false
+                                    }
+                                }
+                            }
+
+                            return AnyView(
+                                Text("")
+                                    .frame(width: 0, height: 0)
+                            )
                         }
+                        .frame(width: 0, height: 0)
                         
-                        Text("Some Scene May Scare Very Young Children")
-                            .font(.caption)
-                            .padding(.top, 5)
-                        
-                        Text(plot)
-                            .padding(.top, 10)
-                        
-                        HStack(spacing: 15) {
-                            Button(action: {}, label: {
-                                Text("Bookmark")
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.white)
-                                    .padding(.vertical, 10)
-                                    .padding(.horizontal, 20)
-                                    .background(Color.blue)
-                                    .cornerRadius(10)
-                            })
+                        VStack(spacing: 15) {
+                            Text("Toys Story")
+                                .font(.system(size: 35, weight: .bold))
                             
-                            Button(action: {}, label: {
-                                Text("Buy Tickes")
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.white)
-                                    .padding(.vertical, 10)
-                                    .padding(.horizontal, 20)
-                                    .background(Color.red)
-                                    .cornerRadius(10)
-                            })
-                        }
-                        .padding()
-                        .padding(.top)
-                        .padding(.bottom)
-                    } //VStack
-                })
+                            HStack(spacing: 15) {
+                                ForEach(1...5, id: \.self) { _ in
+                                    Image(systemName: "star.fill")
+                                        .foregroundColor(.red)
+                                }
+                            }
+                            
+                            Text("Some Scene May Scare Very Young Children")
+                                .font(.caption)
+                                .padding(.top, 5)
+                            
+                            Text(plot)
+                                .padding(.top, 10)
+                            
+                            HStack(spacing: 15) {
+                                Button(action: {}, label: {
+                                    Text("Bookmark")
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.white)
+                                        .padding(.vertical, 10)
+                                        .padding(.horizontal, 20)
+                                        .background(Color.blue)
+                                        .cornerRadius(10)
+                                })
                                 
-            }) //ScrollView
+                                Button(action: {}, label: {
+                                    Text("Buy Tickes")
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.white)
+                                        .padding(.vertical, 10)
+                                        .padding(.horizontal, 20)
+                                        .background(Color.red)
+                                        .cornerRadius(10)
+                                })
+                            }
+                            .padding()
+                            .padding(.top)
+                            .padding(.bottom)
+                        } //VStack
+                    })
+                                    
+                }) //ScrollView
+            }                                    
+            
         }
 //        .padding(.top)
         .background(Color.white)

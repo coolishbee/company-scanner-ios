@@ -74,11 +74,16 @@ extension CoolishLocationCoordinator: CLLocationManagerDelegate {
 extension CoolishLocationCoordinator: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        print("didSelect")        
+        print("didSelect")
+        if let annotation = view.annotation as? CompanyAnnotation {
+            print("picking: \(annotation.title ?? "") : \(annotation.subtitle ?? "")")
+            self.mainMapView.viewModel?.selectedAnnotation = annotation
+        }
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
         print("didDeselect")
+        self.mainMapView.viewModel?.selectedAnnotation = nil
     }
     
     func mapView(_ mapView: MKMapView,
